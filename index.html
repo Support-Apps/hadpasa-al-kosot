@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☕ Trading Mug Prints - English</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #1a1a2e;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p { color: #8892b0; }
+
+        .instructions {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            color: #a0a8b8;
+        }
+
+        .instructions h3 { color: #ffd700; margin-bottom: 10px; }
+        .instructions ul { margin-left: 20px; line-height: 1.8; }
+
+        /* Mug Mockups */
+        .mockup-section {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .mockup-examples {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .mug-example {
+            text-align: center;
+        }
+
+        .mug-body {
+            width: 120px;
+            height: 140px;
+            background: linear-gradient(to right, #f8f8f8 0%, #ffffff 50%, #e8e8e8 100%);
+            border-radius: 0 0 15px 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset -5px 0 10px rgba(0,0,0,0.1),
+                3px 5px 15px rgba(0,0,0,0.2);
+            border-top: 8px solid #e0e0e0;
+        }
+
+        .mug-handle {
+            position: absolute;
+            right: -25px;
+            top: 20px;
+            width: 30px;
+            height: 60px;
+            border: 8px solid #e0e0e0;
+            border-left: none;
+            border-radius: 0 25px 25px 0;
+            background: transparent;
+        }
+
+        .mug-print {
+            text-align: center;
+            color: #1a1a2e;
+        }
+
+        .section-title {
+            color: #ffd700;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 40px 0 25px;
+        }
+
+        .mugs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .mug-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .mug-preview {
+            display: none;
+        }
+
+        .mug-mockup {
+            width: 180px;
+            height: 160px;
+            background: white;
+            border-radius: 8px 45px 45px 8px;
+            position: relative;
+            box-shadow: inset -8px 0 15px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .mug-mockup::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 70px;
+            border: 7px solid #ddd;
+            border-right: none;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .mug-design {
+            text-align: center;
+            padding: 12px;
+            width: 100%;
+        }
+
+        .mug-design .icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+        .mug-design .main-text { font-weight: 800; font-size: 0.85rem; line-height: 1.2; color: #1a1a2e; }
+        .mug-design .sub-text { font-size: 0.7rem; color: #333; font-weight: 600; margin-top: 3px; }
+
+        .print-area {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            margin: 0;
+            padding: 30px 35px;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .print-area .icon { font-size: 2.5rem; margin-bottom: 8px; }
+        .print-area .main-text { font-weight: 900; font-size: 1.2rem; color: #1a1a2e; line-height: 1.2; }
+        .print-area .sub-text { font-size: 0.85rem; color: #333; font-weight: 600; margin-top: 4px; }
+
+        .mug-info {
+            display: none;
+        }
+
+        /* Modal for preview on mug */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-mug {
+            position: relative;
+            width: 250px;
+            height: 280px;
+        }
+
+        .modal-mug-body {
+            width: 200px;
+            height: 240px;
+            background: linear-gradient(to right, #f0f0f0 0%, #ffffff 50%, #e0e0e0 100%);
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset -8px 0 15px rgba(0,0,0,0.1),
+                5px 8px 25px rgba(0,0,0,0.3);
+            border-top: 12px solid #d0d0d0;
+            margin-left: 25px;
+        }
+
+        .modal-mug-handle {
+            position: absolute;
+            right: -35px;
+            top: 40px;
+            width: 45px;
+            height: 100px;
+            border: 12px solid #d0d0d0;
+            border-left: none;
+            border-radius: 0 40px 40px 0;
+            background: transparent;
+        }
+
+        .modal-design {
+            text-align: center;
+            z-index: 1;
+            color: #1a1a2e;
+        }
+
+        .modal-design .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .modal-design .main-text {
+            font-weight: 900;
+            font-size: 1.2rem;
+            line-height: 1.2;
+            color: #1a1a2e;
+        }
+
+        .modal-design .sub-text {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .modal-hint {
+            color: white;
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .print-single-btn {
+            position: absolute;
+            bottom: 70px;
+            background: linear-gradient(135deg, #ffd700, #f59e0b);
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .print-single-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .mug-card {
+            cursor: pointer;
+        }
+
+        .mug-info h4 { color: #1a1a2e; font-size: 0.85rem; margin-bottom: 2px; }
+        .mug-info p { color: #666; font-size: 0.75rem; }
+
+        .download-all {
+            display: block;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700, #f59e0b);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        @media print {
+            body { background: white; }
+            .header, .instructions, .mug-info, .mug-preview, .download-all, .section-title { display: none; }
+            .mug-card { page-break-inside: avoid; margin-bottom: 15px; box-shadow: none; }
+            .print-area { border: 1px solid #ccc; }
+        }
+
+        @media (max-width: 768px) {
+            .mugs-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>☕ Trading Mug Prints</h1>
+        <p>50+ Professional Print-Ready Designs for Mugs</p>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 Mug Print Instructions:</h3>
+        <ul>
+            <li>Click on design to see it enlarged</li>
+            <li>Screenshot the enlarged design</li>
+            <li>Upload to Printful, Printify, or local print shop</li>
+            <li>Standard mug print: 3.5" x 9" (wrap) or 3" x 3" (one side)</li>
+        </ul>
+    </div>
+
+    <!-- Mockup Examples -->
+    <div class="mockup-section">
+        <h3 class="section-title">☕ How It Looks On A Mug</h3>
+        <div class="mockup-examples">
+            <div class="mug-example">
+                <div class="mug-body">
+                    <div class="mug-handle"></div>
+                    <div class="mug-print">
+                        <span style="font-size: 1.2rem;">👑</span>
+                        <div style="font-weight: 800; font-size: 0.55rem;">QUEEN OF PIPS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mug-example">
+                <div class="mug-body">
+                    <div class="mug-handle"></div>
+                    <div class="mug-print">
+                        <span style="font-size: 1.2rem;">☕📊</span>
+                        <div style="font-weight: 800; font-size: 0.5rem;">CAFFEINATE.<br>ANALYZE.<br>REPEAT.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mug-example">
+                <div class="mug-body">
+                    <div class="mug-handle"></div>
+                    <div class="mug-print">
+                        <span style="font-size: 1.2rem;">💩</span>
+                        <div style="font-weight: 800; font-size: 0.55rem;">PIP HAPPENS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">👑 Royalty Collection</h2>
+    <div class="mugs-grid">
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">👑</span>
+                    <div class="main-text">QUEEN OF<br>PIPS</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">👑</span>
+                <div class="main-text">QUEEN OF PIPS</div>
+            </div>
+            <div class="mug-info"><h4>Queen of Pips</h4><p>For the trading queens</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">👑</span>
+                    <div class="main-text">KING OF<br>PIPS</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">👑</span>
+                <div class="main-text">KING OF PIPS</div>
+            </div>
+            <div class="mug-info"><h4>King of Pips</h4><p>For the trading kings</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💎👑</span>
+                    <div class="main-text">TRADING<br>ROYALTY</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💎👑</span>
+                <div class="main-text">TRADING</div>
+                <div class="main-text">ROYALTY</div>
+            </div>
+            <div class="mug-info"><h4>Trading Royalty</h4><p>Crown your success</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">☕ Morning Coffee Collection</h2>
+    <div class="mugs-grid">
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">☕📊</span>
+                    <div class="main-text">Caffeinate.<br>Analyze.<br>Repeat.</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">☕📊🔄</span>
+                <div class="main-text">CAFFEINATE.<br>ANALYZE.<br>REPEAT.</div>
+            </div>
+            <div class="mug-info"><h4>Caffeinate Analyze Repeat</h4><p>Morning trading ritual</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">☕📈</span>
+                    <div class="main-text">Coffee &<br>Charts</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">☕📈</span>
+                <div class="main-text">COFFEE & CHARTS</div>
+            </div>
+            <div class="mug-info"><h4>Coffee & Charts</h4><p>Perfect combo</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">☕</span>
+                    <div class="main-text">First Coffee<br>Then Charts</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">☕</span>
+                <div class="main-text">FIRST COFFEE</div>
+                <div class="main-text">THEN CHARTS</div>
+            </div>
+            <div class="mug-info"><h4>First Coffee Then Charts</h4><p>Priorities!</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">☕💹</span>
+                    <div class="main-text">Fueled by<br>Coffee & Pips</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">☕💹</span>
+                <div class="main-text">FUELED BY</div>
+                <div class="main-text">COFFEE & PIPS</div>
+            </div>
+            <div class="mug-info"><h4>Fueled By Coffee & Pips</h4><p>Energy source</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">⭐ Best Sellers</h2>
+    <div class="mugs-grid">
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💩</span>
+                    <div class="main-text">PIP<br>HAPPENS</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💩</span>
+                <div class="main-text">PIP HAPPENS</div>
+            </div>
+            <div class="mug-info"><h4>Pip Happens</h4><p>Classic trader humor</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">📈📉</span>
+                    <div class="main-text">TO THE<br>MOON</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">📈📉</span>
+                <div class="main-text">TO THE MOON</div>
+                <div class="sub-text">or to the floor</div>
+            </div>
+            <div class="mug-info"><h4>To The Moon</h4><p>Trading reality</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">😂</span>
+                    <div class="main-text">Live Laugh<br>Leverage</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">😂📈</span>
+                <div class="main-text">LIVE, LAUGH,</div>
+                <div class="main-text">LEVERAGE</div>
+            </div>
+            <div class="mug-info"><h4>Live Laugh Leverage</h4><p>Trader's motto</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💎🙌</span>
+                    <div class="main-text">Diamond<br>Hands</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💎🙌</span>
+                <div class="main-text">DIAMOND HANDS</div>
+            </div>
+            <div class="mug-info"><h4>Diamond Hands</h4><p>Never selling in panic</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">📉💰</span>
+                    <div class="main-text">Buy The<br>Dip</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">📉💰</span>
+                <div class="main-text">BUY THE DIP</div>
+            </div>
+            <div class="mug-info"><h4>Buy The Dip</h4><p>Classic strategy</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">⏳💰</span>
+                    <div class="main-text">Patience<br>Pays</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">⏳💰</span>
+                <div class="main-text">PATIENCE PAYS</div>
+            </div>
+            <div class="mug-info"><h4>Patience Pays</h4><p>Wait for it</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">😂 Humor Collection</h2>
+    <div class="mugs-grid">
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🤡</span>
+                    <div class="main-text">Professional<br>Trader</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🤡</span>
+                <div class="main-text">PROFESSIONAL TRADER</div>
+                <div class="sub-text">(self-proclaimed)</div>
+            </div>
+            <div class="mug-info"><h4>Professional Trader</h4><p>Self-aware humor</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🎲</span>
+                    <div class="main-text">Not<br>Gambling</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🎲📊</span>
+                <div class="main-text">IT'S NOT GAMBLING</div>
+                <div class="sub-text">it's "technical analysis"</div>
+            </div>
+            <div class="mug-info"><h4>It's Not Gambling</h4><p>Wink wink</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🔥</span>
+                    <div class="main-text">This Is<br>Fine</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🔥</span>
+                <div class="main-text">THIS IS FINE</div>
+                <div class="sub-text">*portfolio -50%*</div>
+            </div>
+            <div class="mug-info"><h4>This Is Fine</h4><p>When markets crash</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">📈📉</span>
+                    <div class="main-text">Buy High<br>Sell Low</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">📈📉</span>
+                <div class="main-text">BUY HIGH</div>
+                <div class="main-text">SELL LOW</div>
+                <div class="sub-text">the real strategy</div>
+            </div>
+            <div class="mug-info"><h4>Buy High Sell Low</h4><p>Opposite day</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">👁️⚡</span>
+                    <div class="main-text">I Came<br>I Saw<br>I Overleveraged</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">👁️⚡</span>
+                <div class="main-text">I CAME. I SAW.</div>
+                <div class="main-text">I OVERLEVERAGED.</div>
+            </div>
+            <div class="mug-info"><h4>I Came I Saw</h4><p>Trading reality</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💸</span>
+                    <div class="main-text">Money Printer<br>Go Brrrr</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💸</span>
+                <div class="main-text">MONEY PRINTER</div>
+                <div class="main-text">GO BRRRR</div>
+            </div>
+            <div class="mug-info"><h4>Money Printer</h4><p>Fed energy</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🦍</span>
+                    <div class="main-text">APE MODE</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🦍</span>
+                <div class="main-text">APE MODE</div>
+                <div class="sub-text">engaged</div>
+            </div>
+            <div class="mug-info"><h4>Ape Mode</h4><p>YOLO energy</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">😱</span>
+                    <div class="main-text">Margin<br>Call</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">😱</span>
+                <div class="main-text">MARGIN CALL</div>
+                <div class="sub-text">survivor</div>
+            </div>
+            <div class="mug-info"><h4>Margin Call</h4><p>The horror</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">📱</span>
+                    <div class="main-text">Checking<br>Charts</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">📱</span>
+                <div class="main-text">CHECKING CHARTS</div>
+                <div class="sub-text">every 5 seconds</div>
+            </div>
+            <div class="mug-info"><h4>Checking Charts</h4><p>Chart addiction</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">👀</span>
+                    <div class="main-text">FOMO</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">👀</span>
+                <div class="main-text">FOMO</div>
+                <div class="sub-text">fear of missing out</div>
+            </div>
+            <div class="mug-info"><h4>FOMO</h4><p>We've all been there</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🔮</span>
+                    <div class="main-text">Indicators<br>Said Yes</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🔮</span>
+                <div class="main-text">INDICATORS SAID YES</div>
+                <div class="sub-text">market said no</div>
+            </div>
+            <div class="mug-info"><h4>Indicators Said</h4><p>TA vs reality</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">💪 Motivation Collection</h2>
+    <div class="mugs-grid">
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🎯</span>
+                    <div class="main-text">Trust The<br>Process</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🎯</span>
+                <div class="main-text">TRUST THE PROCESS</div>
+            </div>
+            <div class="mug-info"><h4>Trust The Process</h4><p>Stay the course</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💪</span>
+                    <div class="main-text">Stay<br>Disciplined</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💪</span>
+                <div class="main-text">STAY DISCIPLINED</div>
+            </div>
+            <div class="mug-info"><h4>Stay Disciplined</h4><p>Key to success</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🧘</span>
+                    <div class="main-text">Trade Your<br>Plan</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🧘</span>
+                <div class="main-text">TRADE YOUR PLAN</div>
+            </div>
+            <div class="mug-info"><h4>Trade Your Plan</h4><p>Stick to strategy</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💎</span>
+                    <div class="main-text">Diamond<br>Mindset</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💎</span>
+                <div class="main-text">DIAMOND MINDSET</div>
+            </div>
+            <div class="mug-info"><h4>Diamond Mindset</h4><p>Unbreakable</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🏆</span>
+                    <div class="main-text">Winner's<br>Mindset</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🏆</span>
+                <div class="main-text">WINNER'S MINDSET</div>
+            </div>
+            <div class="mug-info"><h4>Winner's Mindset</h4><p>Think like a champion</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🔥</span>
+                    <div class="main-text">Stay<br>Focused</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🔥</span>
+                <div class="main-text">STAY FOCUSED</div>
+            </div>
+            <div class="mug-info"><h4>Stay Focused</h4><p>Eyes on the prize</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">📈</span>
+                    <div class="main-text">Compound<br>Gains</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">📈</span>
+                <div class="main-text">COMPOUND GAINS</div>
+            </div>
+            <div class="mug-info"><h4>Compound Gains</h4><p>8th wonder</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🚫</span>
+                    <div class="main-text">No<br>Emotions</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🚫</span>
+                <div class="main-text">NO EMOTIONS</div>
+                <div class="sub-text">just data</div>
+            </div>
+            <div class="mug-info"><h4>No Emotions</h4><p>Trade the chart</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💰</span>
+                    <div class="main-text">Protect Your<br>Capital</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💰</span>
+                <div class="main-text">PROTECT YOUR CAPITAL</div>
+            </div>
+            <div class="mug-info"><h4>Protect Your Capital</h4><p>Rule #1</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">📊 Trading Life</h2>
+    <div class="mugs-grid">
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🐂</span>
+                    <div class="main-text">BULL<br>MODE</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🐂</span>
+                <div class="main-text">BULL MODE</div>
+                <div class="sub-text">activated</div>
+            </div>
+            <div class="mug-info"><h4>Bull Mode</h4><p>Going long</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🐻</span>
+                    <div class="main-text">BEAR<br>MODE</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🐻</span>
+                <div class="main-text">BEAR MODE</div>
+                <div class="sub-text">activated</div>
+            </div>
+            <div class="mug-info"><h4>Bear Mode</h4><p>Going short</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🏄‍♀️</span>
+                    <div class="main-text">Riding The<br>Trend</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🏄‍♀️🌊</span>
+                <div class="main-text">RIDING THE TREND</div>
+            </div>
+            <div class="mug-info"><h4>Riding The Trend</h4><p>Trend is your friend</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">🤖💰</span>
+                    <div class="main-text">My Bot<br>Makes Money</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">🤖💰</span>
+                <div class="main-text">MY BOT MAKES MONEY</div>
+                <div class="sub-text">while I sleep</div>
+            </div>
+            <div class="mug-info"><h4>My Bot Makes Money</h4><p>Algo trading life</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💹</span>
+                    <div class="main-text">GREEN<br>DAY</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💹</span>
+                <div class="main-text">GREEN DAY</div>
+            </div>
+            <div class="mug-info"><h4>Green Day</h4><p>Profitable vibes</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💪</span>
+                    <div class="main-text">FUNDED<br>TRADER</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💪</span>
+                <div class="main-text">FUNDED TRADER</div>
+            </div>
+            <div class="mug-info"><h4>Funded Trader</h4><p>Made it!</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">💵</span>
+                    <div class="main-text">Show Me<br>The Money</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">💵</span>
+                <div class="main-text">SHOW ME THE MONEY</div>
+            </div>
+            <div class="mug-info"><h4>Show Me The Money</h4><p>Results matter</p></div>
+        </div>
+
+        <div class="mug-card">
+            <div class="mug-preview">
+                <div class="mug-mockup"><div class="mug-design">
+                    <span class="icon">📝</span>
+                    <div class="main-text">JOURNAL<br>IT</div>
+                </div></div>
+            </div>
+            <div class="print-area">
+                <span class="icon">📝</span>
+                <div class="main-text">JOURNAL IT</div>
+            </div>
+            <div class="mug-info"><h4>Journal It</h4><p>Track everything</p></div>
+        </div>
+    </div>
+
+    <!-- ☕ MORE COFFEE MUGS -->
+    <h2 class="section-title">☕ More Coffee & Trading Mugs</h2>
+    <div class="mugs-grid">
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📊</span><div class="main-text">NO PIPS</div><div class="main-text">BEFORE SIPS</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">🤫☕</span><div class="main-text">NO TALKIE BEFORE</div><div class="main-text">NFP & COFFEE</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🕯️</span><div class="main-text">POWERED BY</div><div class="sub-text">caffeine & candlesticks</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕😢</span><div class="main-text">COFFEE:</div><div class="sub-text">Because stop losses hurt</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💴</span><div class="main-text">THIS CUP HOLDS MORE</div><div class="sub-text">liquidity than the yen</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💰</span><div class="main-text">I ONLY TAKE PROFITS</div><div class="sub-text">after my second coffee</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕⏰</span><div class="main-text">MY SL IS TIGHTER</div><div class="sub-text">than my schedule</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📈</span><div class="main-text">LATTE & LEVERAGE</div><div class="sub-text">That's my strategy</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📊</span><div class="main-text">ONE LOT PER SIP</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💪</span><div class="main-text">MY COFFEE'S STRONG</div><div class="sub-text">My trades... not always</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📉</span><div class="main-text">CAFFEINE IS MY</div><div class="main-text">ONLY INDICATOR</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💀</span><div class="main-text">DECAF TRADERS</div><div class="main-text">GET REKT</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🥇</span><div class="main-text">XAUUSD PAIRS WELL</div><div class="sub-text">with caffeine</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📐</span><div class="main-text">I USE FIBONACCI</div><div class="sub-text">to stir my coffee</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🌅</span><div class="main-text">TOO EARLY TO TRADE</div><div class="sub-text">never too early for coffee</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕😴</span><div class="main-text">NO SLEEP</div><div class="sub-text">Just coffee and Forex</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🔄</span><div class="main-text">BREW. CHART. ENTER.</div><div class="sub-text">Regret. Repeat.</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💹</span><div class="main-text">FIRST COFFEE</div><div class="main-text">THEN PIPS</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📉</span><div class="main-text">BUY DIPS</div><div class="main-text">SIP SIPS</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🛑</span><div class="main-text">MY STOP-LOSS</div><div class="sub-text">needs caffeine</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕😨</span><div class="main-text">FUELED BY COFFEE</div><div class="sub-text">& market fear</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🤞</span><div class="main-text">TRADING ON COFFEE</div><div class="sub-text">and hope</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📊</span><div class="main-text">CHARTS</div><div class="main-text">BEFORE CHATS</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🧠</span><div class="main-text">COFFEE FIRST</div><div class="main-text">LOGIC LATER</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕😭</span><div class="main-text">THIS MUG SAW</div><div class="sub-text">my account cry</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🤔</span><div class="main-text">I DRINK COFFEE SO</div><div class="sub-text">my charts make sense</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💴</span><div class="main-text">JAVA & JPY</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕⚠️</span><div class="main-text">ALERT:</div><div class="sub-text">Coffee level low, risk high</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕💉</span><div class="main-text">THIS IS MY</div><div class="main-text">SCALPING SERUM</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🧊</span><div class="main-text">HOT COFFEE</div><div class="main-text">COLD ANALYSIS</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📈</span><div class="main-text">MY TREND IS BULLISH</div><div class="sub-text">until the coffee's gone</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕🇬🇧</span><div class="main-text">WOKE UP FOR LONDON</div><div class="sub-text">stayed for the latte</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">☕📈</span><div class="main-text">RISK-ON</div><div class="main-text">BREW-ON</div></div></div>
+    </div>
+
+    <!-- 🥇 GOLD TRADING MUGS -->
+    <h2 class="section-title">🥇 Gold Trading Mugs</h2>
+    <div class="mugs-grid">
+        <div class="mug-card"><div class="print-area"><span class="icon">✨🥇</span><div class="main-text">ALL THAT GLITTERS</div><div class="main-text">IS XAUUSD</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">❤️🥇</span><div class="main-text">MY HEART</div><div class="main-text">TRADES GOLD</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">🥇📉</span><div class="main-text">GOLD NEVER LIES</div><div class="sub-text">just dips</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">💔🥇</span><div class="main-text">XAU/USD IS</div><div class="main-text">MY TOXIC EX</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">🥇💪</span><div class="main-text">BUY GOLD</div><div class="main-text">STAY BOLD</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">💛🥇</span><div class="main-text">XAU IS BAE</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">🥇🏃</span><div class="main-text">I CHASE GOLD</div><div class="main-text">NOT PEOPLE</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">💎🥇</span><div class="main-text">DIAMONDS? NAH.</div><div class="sub-text">XAU/USD, baby</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">✨👑</span><div class="main-text">REAL TRADERS</div><div class="main-text">SPARKLE IN GOLD</div></div></div>
+        <div class="mug-card"><div class="print-area"><span class="icon">🥇⛏️</span><div class="main-text">GOLD RUSH</div><div class="main-text">IN MY CHARTS</div></div></div>
+    </div>
+
+    <button class="download-all" onclick="window.print()">🖨️ Print All Mug Designs</button>
+
+    <!-- Modal for preview on mug -->
+    <div class="modal" id="modal" onclick="closeModal()">
+        <div class="modal-mug">
+            <div class="modal-mug-body">
+                <div class="modal-mug-handle"></div>
+                <div class="modal-design" id="modalContent"></div>
+            </div>
+        </div>
+        <button id="printBtn" class="print-single-btn" onclick="event.stopPropagation(); printDesign();">🖨️ Print This Design</button>
+        <div class="modal-hint">Click anywhere to close | Click print button to print</div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.mug-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const printArea = this.querySelector('.print-area');
+                if (printArea) {
+                    document.getElementById('modalContent').innerHTML = printArea.innerHTML;
+                    document.getElementById('printBtn').style.display = 'block';
+                    document.getElementById('modal').classList.add('active');
+                }
+            });
+
+            card.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const printArea = this.querySelector('.print-area');
+                if (printArea) {
+                    document.getElementById('modalContent').innerHTML = printArea.innerHTML;
+                    document.getElementById('printBtn').style.display = 'block';
+                    document.getElementById('modal').classList.add('active');
+                }
+            });
+        });
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function printDesign() {
+            const content = document.getElementById('modalContent').innerHTML;
+            const printDiv = document.createElement('div');
+            printDiv.id = 'printArea';
+            printDiv.innerHTML = '<div class="print-design">' + content + '</div>';
+            
+            const style = document.createElement('style');
+            style.id = 'printStyle';
+            style.textContent = `
+                @media print {
+                    body > *:not(#printArea) { display: none !important; }
+                    #printArea { 
+                        display: flex !important; 
+                        justify-content: center; 
+                        align-items: center; 
+                        min-height: 100vh;
+                        position: fixed;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        background: white;
+                        z-index: 99999;
+                    }
+                    .print-design { 
+                        text-align: center; 
+                        padding: 40px;
+                    }
+                    .print-design .icon { font-size: 70px; display: block; margin-bottom: 15px; }
+                    .print-design .main-text { font-weight: 900; font-size: 40px; line-height: 1.2; color: #1a1a2e; }
+                    .print-design .sub-text { font-weight: 600; color: #333; font-size: 20px; margin-top: 10px; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(printDiv);
+            
+            window.print();
+            
+            document.head.removeChild(style);
+            document.body.removeChild(printDiv);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
